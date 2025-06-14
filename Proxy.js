@@ -8,7 +8,7 @@ const supportedString = "Please use 1.8-1.8.9"
 
 export class Proxy {
   constructor() {
-    this.version = "1.0"
+    this.version = "1.1.1"
 
     this.proxyServer = createServer({
       "online-mode": true,
