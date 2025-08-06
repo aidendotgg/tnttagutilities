@@ -66,10 +66,18 @@ export class TabListHandler {
           if (playerInfo.ping !== undefined) object.ping = playerInfo.ping
           if (playerInfo.crypto !== undefined) object.crypto = playerInfo.crypto
           if (playerInfo.ping > 1 || playerInfo.latency > 1) object.hadPing = true
+
+          for (let [existingUuid, existingData] of this.players) {
+            if (existingData.name === object.name && existingUuid !== object.uuid) {
+              this.players.delete(existingUuid)
+            }
+          }
           this.players.set(object.uuid, object)
         }
       }
-      if (this.stateHandler.state === "game") this.checkPlayerList()
+      if (this.stateHandler.state === "game") {
+        this.checkPlayerList()
+      }
     })
     this.proxyClient.on("player_remove", data => {
       for (let uuid of data.players) {
@@ -262,6 +270,7 @@ export class TabListHandler {
     }
   }
 
+  /*  nicked player handler*/
   nickedPlayer(uuid) {
     if (this.stateHandler.state !== "game") return
     if (this.teamOverrides.has(uuid)) return
@@ -273,7 +282,16 @@ export class TabListHandler {
     } else {
       username = player.name
     }
-    this.addTeamOverride(uuid, username, {nicked: true})
+    if (player.properties !== undefined) {
+      const skinData = JSON.parse(Buffer.from(player.properties[0].value, "base64").toString("utf8"))
+
+      if (skinData.profileId === player.uuid.replaceAll("-", "") || a.includes(skinData.profileName)) {
+        this.addTeamOverride(uuid, username, {nicked: true, real:""})
+      } else {
+        this.addTeamOverride(uuid, username, {nicked: true, real: skinData.profileName})
+      }
+    }
+
   }
 
   addTeamOverride(uuid, username, data) {
@@ -281,7 +299,10 @@ export class TabListHandler {
     if (username === undefined) return
     let extraText
     if (data.nicked) {
-      extraText = "§c [NICKED]"
+      extraText = '§c [NICKED]'
+      if (data.real !== "") {
+        this.clientHandler.sendClientMessage(`§cTNTTagUtilities > §c${data.real} §7is nicked as §c${username}§7.`)
+      }
     } else {
       let wins = data.wins
       let winsColor
@@ -320,6 +341,7 @@ export class TabListHandler {
       }
     }
     let newTeamKey = (orderingNums || "aaa") + username.substring(0, 3) + randomString(10)
+
     let newSuffix
     if (serverTeamValue?.suffix) {
       newSuffix = serverTeamValue.suffix + extraText
@@ -374,3 +396,5 @@ export class TabListHandler {
     if (this.teamOverrides.has(longUUID)) this.replaceTeamOverride(longUUID)
   }
 }
+
+const a = JSON.parse(Buffer.from("WyJQaWNrZ3VhcmQiLCJNeXN0aWNHYW1lck1hbiIsIlRhY3RmdWwiLCJCbGFzdGVyeWF5YSIsIlNhZmVEcmlmdDQ4IiwidGhlQkxSeHgiLCJIb19Cb3QiLCIyODA3IiwiU3lsZWV4IiwiVmlvbGV0c2t5enoiLCJUaGVfSG9zdGVyX01hbiIsInJvcm9fX18iLCJNSEZfTWluZXNraW4iLCJIb3RhbXBhIiwiRGFubm9CYW5hbm5vWEQiLCIwOEJFRDUiLCJZYU9PUCIsIk1pY3VsZ2FtZXMiLCJNaW5lU2tpbl9vcmciLCJNZWdha2xvb24iLCJBbm9uaW1ZVFQiLCJNYW5nb3dfIiwiRWNob3JyYSIsImltdHJhc2hzb2dvZXoiLCJCb2JpbmhvXyIsIlllbGVoYSIsIkRvdWJsZURlbHRhcyIsIl9KdXN0RG9sdCIsIkh5cGlnc2VsIiwiVGVyb2ZhciIsInNpbGVudGRldHJ1Y3Rpb24iLCJJbUZhdFRCSCIsImdhaWFfbGluayIsIkdvbGRhcGZlbCIsIlNrdWxsQ2xpZW50U2tpbjYiLCJQZWFyc29uSW5tYW4iLCJUaGVJbmRyYSIsIlNlcmlhbGl6YWJsZSIsIkJlZXZlbG9wZXIiLCJSZWFkIiwibHV4ZW1hbiIsIkZlYnJ1YXIwMyIsIkRhbmNpbmdEb2dnb18iLCJfSnVzdERvSXQiLCJEZXRocm9uZXMiLCJEaXNjb3JkQXBwIiwiTWluaURpZ2dlclRlc3QiLCJDb2xieUJlZWVlIiwieW9sb19tYXRpcyIsIkZhbmN5X0x1ZHdpZyIsIkJlZHdhcnNDdXRpZSIsImthcmV0aDk5OSIsImxhbGEyNSIsIkhpZGR1cyIsImZnYWIiLCJzcGlkZXJtYW44MzEiLCJEb2d5Q1pTS18iLCJCdWdnaSIsIlRoYW5rc01vamFuZyIsIkx1Z2kiLCJTaG93dHJvbmljIiwiRmlyZWJ5cmQ4OCIsIlRoM20xcyIsImNvZGVuYW1lX0IiLCJvd29FbmRlciIsIl90b21hdG96XyIsIkxveV9CbG9vZEFuZ2VsIiwiNDE0MTQxNDFoIiwiVG9tcGtpbjQyIiwibGF1cmVuY2lvMzAzIiwidGhlYXBpaXNiYWQiLCJIYWdvcmEiXQ==", "base64").toString("utf8"))

@@ -5,7 +5,9 @@
   "license": "MIT",
   "type": "module",
   "scripts": {
-    "start": "node index.js"
+    "start": "node index.js",
+    "dev": "node index.js --dev"
+
   },
   "dependencies": {
     "minecraft-data": "^3.46.1",

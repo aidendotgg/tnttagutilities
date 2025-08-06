@@ -45,9 +45,10 @@ function handleLine(line) {
   if (!isCommand) console.log("Unknown command. Do \"help\" for a list of commands.")
 }
 async function handleSigint() {
-  //do nothing because people type ctrl+c to copy text too
-  //rl.close()
-  //process.exit()
+  if (process.argv.includes("--dev")) {
+    rl.close()
+    process.exit()
+  }
 }
 
 const proxy = new Proxy()
