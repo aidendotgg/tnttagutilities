@@ -301,16 +301,7 @@ export class TabListHandler {
     if (data.nicked) {
       extraText = '§c [NICKED]'
       if (data.real !== "") {
-        if (data.real.length < 12) {
-          extraText=`§c (${data.real})`
-        } else if (data.real.length >= 12 && data.real.length < 14) {
-          extraText=` (${data.real})`
-        } else if (data.real.length >= 14 && data.real.length < 16) {
-        extraText=` ${data.real}`
-        } else if (data.real.length === 16) {
-          this.clientHandler.sendClientMessage(`§cTNTTagUtilities > §c${data.real} §7is nicked as §c${username}§7.`)
-          extraText = '§c [NICKED]'
-        }
+        this.clientHandler.sendClientMessage(`§cTNTTagUtilities > §c${data.real} §7is nicked as §c${username}§7.`)
       }
     } else {
       let wins = data.wins
