@@ -289,6 +289,7 @@ export class TabListHandler {
         this.addTeamOverride(uuid, username, {nicked: true, real:""})
       } else {
         this.addTeamOverride(uuid, username, {nicked: true, real: skinData.profileName})
+        this.clientHandler.sendClientMessage(`§cTNTTagUtilities > §c${skinData.profileName} §7is nicked as §c${username}§7.`)
       }
     }
 
@@ -300,9 +301,6 @@ export class TabListHandler {
     let extraText
     if (data.nicked) {
       extraText = '§c [NICKED]'
-      if (data.real !== "") {
-        this.clientHandler.sendClientMessage(`§cTNTTagUtilities > §c${data.real} §7is nicked as §c${username}§7.`)
-      }
     } else {
       let wins = data.wins
       let winsColor
