@@ -1,13 +1,13 @@
 # TNT Tag Utilities
 This is a script that's like a mod for TNT Tag, adding a couple helpful features, but instead of going into your mods folder it acts as a proxy. This means you'll join a local server with this running, and it will sit between your Minecraft client and Hypixel.
 
-If you need support DM @skrrrtt on discord
+If you need support DM @aidendotgg on discord
 
-*I commissioned someone to make this mod as I do not have a good understanding of minecraft protocol. I was given permission to open source it by the person who made it.*
+*I commissioned someone to make the base of this mod as I do not have a good understanding of minecraft protocol. I was given permission to open source it by the person who made it.*
 
 ## How to use the script from binary (executable)
-- Download and run the binary for your operating system from the [releases](https://github.com/ignSKRRRTT/tnttagutilities/releases) tab
-- You will be prompted to login with microsoft. Once logged in the proxy will redirect you to hypixel and you will be able to use the mod! If you are unsure as to why you need to login then read [this](https://github.com/ignSKRRRTT/tnttagutilities?tab=readme-ov-file#why-do-i-need-to-login)
+- Download and run the binary for your operating system from the [releases](https://github.com/aidendotgg/tnttagutilities/releases) tab
+- You will be prompted to login with microsoft. Once logged in the proxy will redirect you to hypixel and you will be able to use the mod! If you are unsure as to why you need to login then read [this](https://github.com/aidendotgg/tnttagutilities?tab=readme-ov-file#why-do-i-need-to-login)
 - To stop the program, type `exit` in the command prompt, or close the window.
 
 ## How to run and use the script from source
@@ -57,3 +57,4 @@ Your login information is not sent to anything except Mojang/Microsoft. If you d
 
 ### What versions does this support?
 This only supports 1.8
+
