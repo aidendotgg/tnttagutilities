@@ -17,3 +17,5 @@ import * as commandPing from "./commandPing.js"
 list.push(commandPing)
 import * as commandStatistics from "./commandStatistics.js"
 list.push(commandStatistics)
+import * as commandNames from "./commandNames.js"
+list.push(commandNames)

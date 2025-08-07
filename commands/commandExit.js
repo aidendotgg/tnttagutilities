@@ -5,7 +5,7 @@ export const aliases = ["quit", "end", "q"]
 export const allowedSources = ["console"]
 export const description = "Ends the proxy process"
 export async function run(usageInstance) {
-  usageInstance.reply("§7Exiting...")
+  usageInstance.reply("§fExiting...")
   await saveData()
   process.exit()
 }

@@ -30,22 +30,23 @@ If you need support DM @skrrrtt on discord
 - Displays explosion timer and alive players on bossbar. (can be moved with lunar client)
   + *Custom bossbar is off by default due to the buggy nature of it and will have to be turned on in the config if you want it. Due to how bossbars work in 1.8 a hidden wither has to be spawned and flicking fast can make the wither particles show. If you turn off potion particles and smoke animation you will not see any wither particles. There is another unavoidable issue that happens even in hypixel's bossbar where it will freeze if you look into a thick wall.*
 - Plays a counting down tick sound for the last 5 seconds of the round.
-- Makes the timer number a decimal for more accuracy.
+- Makes the timer number a decimal and count client side for more accuracy.
 - Boldens the speed and slowness message in chat to make it stand out more.
 - Plays a high pitch jukebox sound when you get speed 3 and a low pitch jukebox sound when you give slowness 1 to someone.
 - Plays an ender dragon hit sound when you throw someone back with the repulsor powerup.
 - `/tstats <optional user>` shows you someone's TNT Tag stats, or your own.
+- `/names <optional user>` shows you someone's name history, or your own.
 - `/blacklist add/remove <user>` adds user to a blacklist and gives them a yellow colored name on the player list and on their nametag so you can spot players you want to avoid.
 
 ## Images
-<img src="https://r2.e-z.host/2082d908-7c65-4fc3-b02a-5f50f9141543/t1d707ze.png" />
-<img src="https://r2.e-z.host/2082d908-7c65-4fc3-b02a-5f50f9141543/j4je8k2q.png" />
-<img src="https://r2.e-z.host/2082d908-7c65-4fc3-b02a-5f50f9141543/aunxn05o.png" />
-<img src="https://r2.e-z.host/2082d908-7c65-4fc3-b02a-5f50f9141543/q700mw2t.png" />
-<img src="https://r2.e-z.host/2082d908-7c65-4fc3-b02a-5f50f9141543/xa32l0n5.png" />
-<img src="https://r2.e-z.host/2082d908-7c65-4fc3-b02a-5f50f9141543/mk2txt4a.png" />
-<img src="https://r2.e-z.host/2082d908-7c65-4fc3-b02a-5f50f9141543/as628a90.png" />
-<img src="https://r2.e-z.host/2082d908-7c65-4fc3-b02a-5f50f9141543/s2awhlr5.png" />
+<img src="https://r2.e-z.host/2082d908-7c65-4fc3-b02a-5f50f9141543/5eccig1n.png" />
+<img src="https://r2.e-z.host/2082d908-7c65-4fc3-b02a-5f50f9141543/ifje5ttx.png" />
+<img src="https://r2.e-z.host/2082d908-7c65-4fc3-b02a-5f50f9141543/64ygnmvf.png" />
+<img src="https://r2.e-z.host/2082d908-7c65-4fc3-b02a-5f50f9141543/pr6kuhn7.png" />
+<img src="https://r2.e-z.host/2082d908-7c65-4fc3-b02a-5f50f9141543/5cvkof4v.png" />
+<img src="https://r2.e-z.host/2082d908-7c65-4fc3-b02a-5f50f9141543/kt87r2yf.png" />
+<img src="https://r2.e-z.host/2082d908-7c65-4fc3-b02a-5f50f9141543/sir52wob.png" />
+<img src="https://r2.e-z.host/2082d908-7c65-4fc3-b02a-5f50f9141543/97ixi8hg.png" />
 
 ## FAQ
 

@@ -13,16 +13,17 @@ export async function run(usageInstance) {
   }
   let playerStats = await getPlayerStats(username)
   if (!playerStats) {
-    return "§7Player not found."
+    return "§fPlayer not found."
   }
   username = playerStats.username
-  let message = `§cTNTTagUtilities > §c${username}§7's statistics: `
-  message += `§7Wins: §a${playerStats.wins.toLocaleString()}§7, `
-  message += `§7Kills: §a${playerStats.kills.toLocaleString()}§7, `
-  message += `§7Deaths: §a${playerStats.deaths.toLocaleString()}§7, `
-  message += `§7K/D §7Ratio: §a${playerStats.kd}§7, `
-  message += `§7Tags: §a${playerStats.tags.toLocaleString()}§7, `
-  message += `§7TNT §7Coins: §a${playerStats.coins.toLocaleString()}§7, `
-  message += `§7TNT §7Hours: §a${playerStats.playtime}`
+  let message = `§cTNTTagUtilities > §c${username}§f's statistics: `
+  message += `§fWins: §a${playerStats.wins.toLocaleString()}§f, `
+  message += `§fKills: §a${playerStats.kills.toLocaleString()}§f, `
+  message += `§fDeaths: §a${playerStats.deaths.toLocaleString()}§f, `
+  message += `§fK/D §fRatio: §a${playerStats.kd}§f, `
+  message += `§fTags: §a${playerStats.tags.toLocaleString()}§f, `
+  message += `§fPowerups: §a${playerStats.powerups.toLocaleString()}§f, `
+  message += `§fTNT §fCoins: §a${playerStats.coins.toLocaleString()}§f, `
+  message += `§fTNT §fHours: §a${playerStats.playtime}`
   usageInstance.clientHandler.sendClientMessage(message)
 }

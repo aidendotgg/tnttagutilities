@@ -13,16 +13,16 @@ export async function run(usageInstance) {
   promise.then(result => {
     if (alreadyReplied) return
     alreadyReplied = true
-    usageInstance.reply(`§7Current ping: §c${result.latency}ms§7.`)
+    usageInstance.reply(`§fCurrent ping: §c${result.latency}ms`)
   })
   promise.catch(() => {
     if (alreadyReplied) return
     alreadyReplied = true
-    usageInstance.reply("§cFailed to ping Hypixel.")
+    usageInstance.reply("§fFailed to ping Hypixel.")
   })
   setTimeout(() => {
     if (alreadyReplied) return
     alreadyReplied = true
-    usageInstance.reply("§cFailed to ping Hypixel.")
+    usageInstance.reply("§fFailed to ping Hypixel.")
   }, 1000)
 }

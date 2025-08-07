@@ -270,7 +270,6 @@ export class TabListHandler {
     }
   }
 
-  /*  nicked player handler*/
   nickedPlayer(uuid) {
     if (this.stateHandler.state !== "game") return
     if (this.teamOverrides.has(uuid)) return
@@ -286,10 +285,18 @@ export class TabListHandler {
       const skinData = JSON.parse(Buffer.from(player.properties[0].value, "base64").toString("utf8"))
 
       if (skinData.profileId === player.uuid.replaceAll("-", "") || a.includes(skinData.profileName)) {
-        this.addTeamOverride(uuid, username, {nicked: true, real:""})
+        this.addTeamOverride(uuid, username, { nicked: true, real: "" })
       } else {
-        this.addTeamOverride(uuid, username, {nicked: true, real: skinData.profileName})
-        this.clientHandler.sendClientMessage(`§cTNTTagUtilities > §c${skinData.profileName} §7is nicked as §c${username}§7.`)
+        this.addTeamOverride(uuid, username, { nicked: true, real: skinData.profileName })
+        this.clientHandler.sendClientMessage(`§cTNTTagUtilities > §c${skinData.profileName} §fis nicked as §c${username}`)
+        this.userClient.write("named_sound_effect", {
+          soundName: "mob.cat.meow",
+          volume: 1,
+          pitch: 50,
+          x: Math.round(this.stateHandler.currentPosition.x * 8),
+          y: Math.round(this.stateHandler.currentPosition.y * 8) + 8,
+          z: Math.round(this.stateHandler.currentPosition.z * 8)
+        })
       }
     }
 
