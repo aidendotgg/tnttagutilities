@@ -66,15 +66,15 @@ class IdentifierHandler {
 }
 
 async function lookupFromName(name) {
-  let response = await persistentFetch("https://api.mojang.com/users/profiles/minecraft/" + name)
+  let response = await persistentFetch("https://playerdb.co/api/player/minecraft/" + name)
   if (response.status === 204) {
     return null
   }
   let json = await response.json()
   if (json.errorMessage) console.log("Unexpected Mojang API error:\nnameToUUID\n" + JSON.stringify(json))
   return {
-    uuid: json.id,
-    name: json.name
+    uuid: json.data.player.raw_id,
+    name: json.data.player.username
   }
 }
 
