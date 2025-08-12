@@ -10,7 +10,7 @@ If you need support DM @aidendotgg on discord
 - Connect to `localhost` in your multiplayer server bar.
 - You will be prompted in console to login to microsoft. If you are unsure why you have to do this read [here](https://github.com/aidendotgg/tnttagutilities?tab=readme-ov-file#why-do-i-need-to-login).
 - If you see timed out after logging in just reconnect to localhost.
-- To stop the program, type `exit` in the command prompt, or close the window.
+- To stop the program, type `exit` in the console, or close the window.
 
 *if you aren't getting the login prompt in console try going to your .minecraft folder and deleteing the nmp-cache folder before retrying*
 
@@ -48,5 +48,6 @@ Your login information is not sent to anything except Mojang/Microsoft. If you d
 
 ### What versions does this support?
 This only supports 1.8
+
 
 
