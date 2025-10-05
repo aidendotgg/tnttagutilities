@@ -281,7 +281,7 @@ export class TabListHandler {
     } else {
       username = player.name
     }
-    if (player.properties !== undefined) {
+    if (player.properties[0] !== undefined) {
       const skinData = JSON.parse(Buffer.from(player.properties[0].value, "base64").toString("utf8"))
 
       if (skinData.profileId === player.uuid.replaceAll("-", "") || a.includes(skinData.profileName)) {
