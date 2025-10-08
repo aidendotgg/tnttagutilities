@@ -19,3 +19,5 @@ import * as commandStatistics from "./commandStatistics.js"
 list.push(commandStatistics)
 import * as commandNames from "./commandNames.js"
 list.push(commandNames)
+import * as commandShowBarriers from "./commandShowBarriers.js"
+list.push(commandShowBarriers)

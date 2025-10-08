@@ -2,7 +2,7 @@ import { getPlayerNames } from "../tnttagApi/fullStats.js"
 import { getInfo } from "../mojangApi/identifierHandler.js"
 
 export const name = "names"
-export const aliases = ["names"]
+export const aliases = []
 export const allowedSources = ["slash"]
 export const description = "Shows player's name history."
 export async function run(usageInstance) {

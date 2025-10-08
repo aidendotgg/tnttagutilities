@@ -12,7 +12,8 @@ try {
   console.log("No valid data.json found. Creating a new file. (Error code: " + error.code + ")")
   //create fresh data
   let tempData = {
-    blacklisted: []
+    blacklisted: [],
+    showBarriers: false
   }
   replaceData(tempData)
   try {
@@ -27,7 +28,7 @@ try {
 
 export let saveInterval = setInterval(() => {
   saveData()
-}, 60000)
+}, 10000)
 
 export async function saveData() {
   if (dataFileWorking) await fsPromises.writeFile("./data.json", JSON.stringify(data, null, 2))

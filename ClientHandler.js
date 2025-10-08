@@ -5,6 +5,7 @@ import { StateHandler } from "./internalModules/StateHandler.js"
 import { ConsoleLogger } from "./internalModules/ConsoleLogger.js"
 import { TabListHandler } from "./internalModules/TabListHandler.js"
 import { AccurateTimer } from "./internalModules/AccurateTimer.js"
+import { VisibleBarriers } from "./internalModules/VisibleBarriers.js"
 
 export class ClientHandler extends EventEmitter {
   constructor(userClient, proxy, id) {
@@ -36,6 +37,7 @@ export class ClientHandler extends EventEmitter {
     this.consoleLogger = new ConsoleLogger(this)
     this.tabListHandler = new TabListHandler(this)
     this.accurateTimer = new AccurateTimer(this)
+    this.visibleBarriers = new VisibleBarriers(this)
 
     this.bindEventListeners()
   }
