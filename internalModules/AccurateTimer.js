@@ -20,6 +20,7 @@ export class AccurateTimer extends EventEmitter {
     this.explosionTimerInterval = null
     this.lastExplosionTimerValue = null
     this.explosionPingCompleted = 6
+    this.afterRoundTimerValue = 2058
     this.timerScoreboardTeam = null
 
     this.lastDistanceTime = -10000
@@ -52,7 +53,7 @@ export class AccurateTimer extends EventEmitter {
   handleIncomingPacketForScoreboard(data, meta) {
     if (meta.name !== "scoreboard_team") return
     if (this.stateHandler.state !== "game") return
-      
+
     let needsCancel = false
 
     //find if player dies and explosion timer moves to team_6
@@ -69,7 +70,7 @@ export class AccurateTimer extends EventEmitter {
     checks: {
       if (data.prefix !== "§eExplosion in ") break checks
       if (!data.suffix || data.suffix.length < 4) break checks
-      
+
       needsCancel = true
 
       this.timerScoreboardTeam = data.team
@@ -128,12 +129,13 @@ export class AccurateTimer extends EventEmitter {
       this.timerRecords = []
       this.lastExplosionTimerValue = null
       this.explosionPingCompleted = 6
+      this.afterRoundTimerValue = 2058
       this.timerScoreboardTeam = null
 
       this.explosionTimerInterval = setInterval(() => {
         if (this.explosionTime === null) return
         this.displayTimer()
-      }, 10)
+      }, 5)
     })
     this.on("gameStart", () => {
       if (bossbarEnabled) this.spawnWither()
@@ -145,6 +147,22 @@ export class AccurateTimer extends EventEmitter {
 
   displayTimer() {
     let timeRemaining = this.explosionTime - performance.now()
+
+    let formattedTime = formatExplosionTime(timeRemaining)
+    let formattedAfterTime = formatExplosionTime(this.afterRoundTimerValue * 5)
+    let formattedMessage
+
+    if (timeRemaining < 0) {
+      this.afterRoundTimerValue--
+      formattedMessage = `§eNext Round in ${formattedAfterTime} §f⎜ §a${this.playersAlive} §eplayers alive`
+    } else {
+      this.afterRoundTimerValue = 2058
+      formattedMessage = `§eExplosion in ${formattedTime} §f⎜ §a${this.playersAlive} §eplayers alive`
+    }
+    if (performance.now() - this.lastDistanceTime < 1500) {
+      formattedMessage += ` §f⎜ §eDistance: §a${this.lastDistance}m`
+    }
+
     if (this.explosionPingCompleted - 1 >= timeRemaining / 1000 && this.explosionPingCompleted > 1) {
       this.explosionPingCompleted--
       this.userClient.write("named_sound_effect", {
@@ -157,27 +175,33 @@ export class AccurateTimer extends EventEmitter {
       })
     }
 
-    let formattedTime = formatExplosionTime(timeRemaining)
-
-    let formattedMessage = `§eExplosion in ${formattedTime} §f⎜ §a${this.playersAlive} §eplayers alive`
-    if (performance.now() - this.lastDistanceTime < 1500) {
-      formattedMessage += ` §f⎜ §eDistance: §a${this.lastDistance}m`
-    }
-
     this.clientHandler.sendClientActionBar({
       text: formattedMessage
     })
     if (this.timerScoreboardTeam) {
-      this.userClient.write("scoreboard_team", {
-        team: this.timerScoreboardTeam,
-        mode: 2,
-        name: this.timerScoreboardTeam,
-        prefix: '§eExplosion in ',
-        suffix: '§c' + formattedTime,
-        friendlyFire: 3,
-        nameTagVisibility: 'always',
-        color: 15
-      })
+      if (timeRemaining < 0) {
+        this.userClient.write("scoreboard_team", {
+          team: this.timerScoreboardTeam,
+          mode: 2,
+          name: this.timerScoreboardTeam,
+          prefix: '§eNext Round in ',
+          suffix: '§c' + formattedAfterTime,
+          friendlyFire: 3,
+          nameTagVisibility: 'always',
+          color: 15
+        })
+      } else {
+        this.userClient.write("scoreboard_team", {
+          team: this.timerScoreboardTeam,
+          mode: 2,
+          name: this.timerScoreboardTeam,
+          prefix: '§eExplosion in ',
+          suffix: '§c' + formattedTime,
+          friendlyFire: 3,
+          nameTagVisibility: 'always',
+          color: 15
+        })
+      }
     }
     if (this.witherSpawned) this.renameWither(formattedMessage)
   }
@@ -229,7 +253,7 @@ export class AccurateTimer extends EventEmitter {
 
     let pitchRad = toRadians(-this.stateHandler.currentPosition.pitch)
     let yawRad = toRadians(this.stateHandler.currentPosition.yaw + 90)
-  
+
     let directionVectorX = Math.cos(pitchRad) * Math.cos(yawRad)
     let directionVectorY = Math.sin(pitchRad)
     let directionVectorZ = Math.cos(pitchRad) * Math.sin(yawRad)
@@ -253,18 +277,18 @@ export class AccurateTimer extends EventEmitter {
       let x = this.stateHandler.currentPosition.x
       let y = this.stateHandler.currentPosition.y
       let z = this.stateHandler.currentPosition.z
-  
+
       let pitchRad = toRadians(-this.stateHandler.currentPosition.pitch * 0.3)
       let yawRad = toRadians(this.stateHandler.currentPosition.yaw + 25)
-    
+
       let directionVectorX = Math.cos(pitchRad) * Math.cos(yawRad)
       let directionVectorY = Math.sin(pitchRad)
       let directionVectorZ = Math.cos(pitchRad) * Math.sin(yawRad)
-  
+
       x += directionVectorX * 33
       y += directionVectorY * 33
       z += directionVectorZ * 33
-  
+
       this.userClient.write("entity_teleport", {
         entityId: -69421,
         x: Math.round(x * 32),
@@ -279,18 +303,18 @@ export class AccurateTimer extends EventEmitter {
       let x = this.stateHandler.currentPosition.x
       let y = this.stateHandler.currentPosition.y
       let z = this.stateHandler.currentPosition.z
-  
+
       let pitchRad = toRadians(-this.stateHandler.currentPosition.pitch * 0.3)
       let yawRad = toRadians(this.stateHandler.currentPosition.yaw + 155)
-    
+
       let directionVectorX = Math.cos(pitchRad) * Math.cos(yawRad)
       let directionVectorY = Math.sin(pitchRad)
       let directionVectorZ = Math.cos(pitchRad) * Math.sin(yawRad)
-  
+
       x += directionVectorX * 33
       y += directionVectorY * 33
       z += directionVectorZ * 33
-  
+
       this.userClient.write("entity_teleport", {
         entityId: -69422,
         x: Math.round(x * 32),
@@ -305,14 +329,14 @@ export class AccurateTimer extends EventEmitter {
   despawnWither() {
     this.witherSpawned = false
     this.userClient.write("entity_destroy", {
-      entityIds: [ -69420, -69421, -69422 ]
+      entityIds: [-69420, -69421, -69422]
     })
   }
 }
 
 function formatExplosionTime(timeRemaining) {
   if (timeRemaining < 0) timeRemaining = 0
-  timeRemaining = (timeRemaining / 1000).toFixed(2)
+  timeRemaining = (timeRemaining / 1000).toFixed(1)
   let timeInt = parseInt(timeRemaining)
   let colorCode
   if (timeInt < 5) {
