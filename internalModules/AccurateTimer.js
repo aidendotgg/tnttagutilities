@@ -20,7 +20,8 @@ export class AccurateTimer extends EventEmitter {
     this.explosionTimerInterval = null
     this.lastExplosionTimerValue = null
     this.explosionPingCompleted = 6
-    this.afterRoundTimerValue = 2058
+    this.afterRoundTime = 0
+    this.setAfterRoundTime = false
     this.timerScoreboardTeam = null
 
     this.lastDistanceTime = -10000
@@ -129,7 +130,7 @@ export class AccurateTimer extends EventEmitter {
       this.timerRecords = []
       this.lastExplosionTimerValue = null
       this.explosionPingCompleted = 6
-      this.afterRoundTimerValue = 2058
+      this.afterRoundTime = 0
       this.timerScoreboardTeam = null
 
       this.explosionTimerInterval = setInterval(() => {
@@ -147,16 +148,22 @@ export class AccurateTimer extends EventEmitter {
 
   displayTimer() {
     let timeRemaining = this.explosionTime - performance.now()
+    let afterRoundTimeRemaining = this.afterRoundTime - performance.now()
 
     let formattedTime = formatExplosionTime(timeRemaining)
-    let formattedAfterTime = formatExplosionTime(this.afterRoundTimerValue * 5)
+    let formattedAfterTime = formatExplosionTime(afterRoundTimeRemaining)
     let formattedMessage
 
-    if (timeRemaining < 0) {
-      this.afterRoundTimerValue--
+    if (timeRemaining < 0 && !this.setAfterRoundTime) {
+      this.setAfterRoundTime = true
+      this.afterRoundTime = performance.now() + 10500
+    }
+    if (this.setAfterRoundTime) {
       formattedMessage = `§eNext Round in ${formattedAfterTime} §f⎜ §a${this.playersAlive} §eplayers alive`
-    } else {
-      this.afterRoundTimerValue = 2058
+    }
+    if (timeRemaining >= 0) {
+      this.setAfterRoundTime = false
+      this.afterRoundTime = 0
       formattedMessage = `§eExplosion in ${formattedTime} §f⎜ §a${this.playersAlive} §eplayers alive`
     }
     if (performance.now() - this.lastDistanceTime < 1500) {
