@@ -12,9 +12,8 @@ const TOGGLE_PAINT_DELAY_MS = 20
 
 const GLASS_META = 4
 
-export class VisibleBarriers extends EventEmitter {
+export class VisibleBarriers {
   constructor(clientHandler) {
-    super()
     this.clientHandler = clientHandler
     this.userClient = clientHandler.userClient
     this.proxyClient = clientHandler.proxyClient
@@ -33,18 +32,6 @@ export class VisibleBarriers extends EventEmitter {
   }
 
   bindEventListeners() {
-    const onWorldChange = () => this._resetForNewWorld()
-    this.userClient?.on?.("login", onWorldChange)
-    this.userClient?.on?.("respawn", onWorldChange)
-    this.userClient?.on?.("kick_disconnect", onWorldChange)
-    this.userClient?.on?.("unload_chunk", (pkt) => {
-      const cx = pkt?.chunkX ?? pkt?.x
-      const cz = pkt?.chunkZ ?? pkt?.z
-      if (!Number.isInteger(cx) || !Number.isInteger(cz)) return
-      const key = this._overlayKey(cx, cz)
-      this.overlayCache.delete(key)
-      this.paintQueue.delete(key)
-    })
     const flushSoon = () => this._makeAllReadyNow()
     this.userClient?.on?.("position", flushSoon)
   }
@@ -52,11 +39,6 @@ export class VisibleBarriers extends EventEmitter {
   _ensurePaintLoop() {
     if (this.paintLoop) return
     this.paintLoop = setInterval(() => this._drainPaintQueue(), PAINT_TICK_MS)
-  }
-
-  _resetForNewWorld() {
-    this.overlayCache.clear()
-    this.paintQueue.clear()
   }
 
   _overlayKey(cx, cz) { return `${cx},${cz}` }
@@ -76,7 +58,7 @@ export class VisibleBarriers extends EventEmitter {
   _sendBlockChange(pos, typeInt) {
     try {
       this.userClient?.write?.("block_change", { location: pos, type: typeInt })
-    } catch {}
+    } catch { }
   }
 
   _queuePaint(key, wantType, positions, delayMs) {
@@ -198,6 +180,6 @@ export class VisibleBarriers extends EventEmitter {
         }
         return
       }
-    } catch {}
+    } catch { }
   }
 }

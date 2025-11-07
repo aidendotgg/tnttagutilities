@@ -18,7 +18,7 @@ export async function getPlayerStats(identifier) {
     }
     return json
   } catch (error) {
-    console.log("Unexpected full TNT Tag API error:")
+    console.log("TNT Tag API error:")
     console.log(error)
     return null
   }
@@ -42,7 +42,7 @@ export async function getPlayerNames(identifier) {
     }
     return json
   } catch (error) {
-    console.log("Unexpected full TNT Tag API error:")
+    console.log("TNT Tag API error:")
     console.log(error)
     return null
   }

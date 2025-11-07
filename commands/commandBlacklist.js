@@ -3,11 +3,11 @@ import { getName, getInfo } from "../mojangApi/identifierHandler.js"
 
 export const name = "blacklist"
 export const aliases = ["blacklisted"]
-export const allowedSources = ["console", "slash"]
-export const description = "Configures or views the blacklisted user list"
+export const allowedSources = ["slash"]
+export const description = "Allows you to add or remove users from a blacklist. Blacklisted users will have a yellow nametag in game."
 export async function run(usageInstance) {
   if (usageInstance.args.length === 0) {
-    usageInstance.reply(`§fUsage: ${usageInstance.prefix}blacklist add <user> | ${usageInstance.prefix}blacklist remove <user>.`)
+    usageInstance.reply(`§fUsage: /blacklist add/remove <user>`)
     return
   }
   if (usageInstance.args[0] === "add") {

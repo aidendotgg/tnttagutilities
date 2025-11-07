@@ -1,10 +1,9 @@
-import { commandListString, list as commandList } from "./list.js"
 import { data as store, saveData } from "../data/dataHandler.js"
 
 export const name = "showbarriers"
-export const aliases = ["showbarrier"]
-export const allowedSources = ["console", "slash"]
-export const description = "Enable or disable showing of barrier blocks via client-side block_change overlay"
+export const aliases = ["showbarrier", "barriers"]
+export const allowedSources = ["slash"]
+export const description = "Enable or disable showing of barrier blocks."
 
 export async function run(usageInstance) {
   store.showBarriers = !store.showBarriers

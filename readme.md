@@ -33,12 +33,12 @@ If you need support DM @aidendotgg on discord
 ## Images
 <img src="https://r2.e-z.host/2082d908-7c65-4fc3-b02a-5f50f9141543/5eccig1n.png" />
 <img src="https://r2.e-z.host/2082d908-7c65-4fc3-b02a-5f50f9141543/ifje5ttx.png" />
-<img src="https://r2.e-z.host/2082d908-7c65-4fc3-b02a-5f50f9141543/64ygnmvf.png" />
-<img src="https://r2.e-z.host/2082d908-7c65-4fc3-b02a-5f50f9141543/pr6kuhn7.png" />
+<img src="https://r2.e-z.host/2082d908-7c65-4fc3-b02a-5f50f9141543/6wp13kwd.png" />
+<img src="https://r2.e-z.host/2082d908-7c65-4fc3-b02a-5f50f9141543/dhurplzh.png" />
 <img src="https://r2.e-z.host/2082d908-7c65-4fc3-b02a-5f50f9141543/5cvkof4v.png" />
-<img src="https://r2.e-z.host/2082d908-7c65-4fc3-b02a-5f50f9141543/kt87r2yf.png" />
+<img src="https://r2.e-z.host/2082d908-7c65-4fc3-b02a-5f50f9141543/z3drjlf6.png" />
 <img src="https://r2.e-z.host/2082d908-7c65-4fc3-b02a-5f50f9141543/sir52wob.png" />
-<img src="https://r2.e-z.host/2082d908-7c65-4fc3-b02a-5f50f9141543/97ixi8hg.png" />
+<img src="https://r2.e-z.host/2082d908-7c65-4fc3-b02a-5f50f9141543/dqtkiew4.png" />
 
 ## FAQ
 

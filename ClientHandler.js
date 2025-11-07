@@ -6,6 +6,7 @@ import { ConsoleLogger } from "./internalModules/ConsoleLogger.js"
 import { TabListHandler } from "./internalModules/TabListHandler.js"
 import { AccurateTimer } from "./internalModules/AccurateTimer.js"
 import { VisibleBarriers } from "./internalModules/VisibleBarriers.js"
+import { ZombieDetector } from "./internalModules/ZombieDetector.js"
 
 export class ClientHandler extends EventEmitter {
   constructor(userClient, proxy, id) {
@@ -38,6 +39,7 @@ export class ClientHandler extends EventEmitter {
     this.tabListHandler = new TabListHandler(this)
     this.accurateTimer = new AccurateTimer(this)
     this.visibleBarriers = new VisibleBarriers(this)
+    this.zombieDetector = new ZombieDetector(this)
 
     this.bindEventListeners()
   }
@@ -102,8 +104,8 @@ export class ClientHandler extends EventEmitter {
     proxyClient.on("end", (reason) => {
       userClient.end(`§cProxy lost connection to Hypixel: §r${reason}`)
     })
-    userClient.on("error", () => {})
-    proxyClient.on("error", () => {})
+    userClient.on("error", () => { })
+    proxyClient.on("error", () => { })
     //if the proxy client gets kicked while logging in, kick the user client
     proxyClient.once("disconnect", data => {
       userClient.write("kick_disconnect", data)
