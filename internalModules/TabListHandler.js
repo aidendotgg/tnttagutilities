@@ -2,6 +2,7 @@ import { config } from "../config/configHandler.js"
 import { getStats } from "../tnttagApi/statsHandler.js"
 import { randomString } from "../utils/utils.js"
 import { isBlacklisted } from "../data/blacklisted.js"
+import { formatRank, formatWins } from "../utils/utils.js"
 
 let enabled = config["fetch-player-stats"]
 
@@ -19,6 +20,9 @@ export class TabListHandler {
 
     this.entityVisibilityByEID = new Map()
     this.entityVisibilityByUUID = new Map()
+
+    this.sentNickMessages = new Set()
+    this.sentBlacklistMessages = new Set()
 
     if (enabled) {
       this.bindModifiers()
@@ -94,6 +98,8 @@ export class TabListHandler {
         for (let key of this.teamOverrides.keys()) {
           this.removeTeamOverride(key)
         }
+        this.sentNickMessages.clear()
+        this.sentBlacklistMessages.clear()
       }
     })
     this.proxyClient.on("named_entity_spawn", data => {
@@ -288,18 +294,20 @@ export class TabListHandler {
         this.addTeamOverride(uuid, username, { nicked: true, real: "" })
       } else {
         this.addTeamOverride(uuid, username, { nicked: true, real: skinData.profileName })
-        this.clientHandler.sendClientMessage(`§cTNTTagUtilities > §c${skinData.profileName} §fis nicked as §c${username}`)
-        this.userClient.write("named_sound_effect", {
-          soundName: "mob.cat.meow",
-          volume: 1,
-          pitch: 50,
-          x: Math.round(this.stateHandler.currentPosition.x * 8),
-          y: Math.round(this.stateHandler.currentPosition.y * 8) + 8,
-          z: Math.round(this.stateHandler.currentPosition.z * 8)
-        })
+        if (!this.sentNickMessages.has(uuid)) {
+          this.clientHandler.sendClientMessage(`§c[TNT] > §c${skinData.profileName} §fis nicked as §c${username}`)
+          this.userClient.write("named_sound_effect", {
+            soundName: "mob.cat.meow",
+            volume: 1,
+            pitch: 50,
+            x: Math.round(this.stateHandler.currentPosition.x * 8),
+            y: Math.round(this.stateHandler.currentPosition.y * 8) + 8,
+            z: Math.round(this.stateHandler.currentPosition.z * 8)
+          })
+          this.sentNickMessages.add(uuid)
+        }
       }
     }
-
   }
 
   addTeamOverride(uuid, username, data) {
@@ -354,8 +362,37 @@ export class TabListHandler {
       newSuffix = extraText
     }
     let extraPrefixText = ""
+    if (data.tag) {
+      extraPrefixText = "§e"
+
+      if (!this.sentBlacklistMessages.has(uuid)) {
+        this.clientHandler.sendClientMessage(`§c[TNT] > ${formatWins(data.wins)} ${formatRank(username, data.rank, data.plusColor, data.rankColor)} §fis blacklisted on §aSeraph §ffor §c${data.tag.reason}§f: ${data.tag.message}`)
+        this.userClient.write("named_sound_effect", {
+          soundName: "mob.cat.meow",
+          volume: 1,
+          pitch: 50,
+          x: Math.round(this.stateHandler.currentPosition.x * 8),
+          y: Math.round(this.stateHandler.currentPosition.y * 8) + 8,
+          z: Math.round(this.stateHandler.currentPosition.z * 8)
+        })
+        this.sentBlacklistMessages.add(uuid)
+      }
+    }
     if (isBlacklisted(uuid.replaceAll("-", ""))) {
       extraPrefixText = "§e"
+
+      if (!this.sentBlacklistMessages.has(uuid)) {
+        this.clientHandler.sendClientMessage(`§c[TNT] > ${formatWins(data.wins)} ${formatRank(username, data.rank, data.plusColor, data.rankColor)} §fis blacklisted on your local blacklist`)
+        this.userClient.write("named_sound_effect", {
+          soundName: "mob.cat.meow",
+          volume: 1,
+          pitch: 50,
+          x: Math.round(this.stateHandler.currentPosition.x * 8),
+          y: Math.round(this.stateHandler.currentPosition.y * 8) + 8,
+          z: Math.round(this.stateHandler.currentPosition.z * 8)
+        })
+        this.sentBlacklistMessages.add(uuid)
+      }
     }
     let newPrefix
     if (serverTeamValue?.prefix) {

@@ -24,7 +24,7 @@ export class ZombieDetector {
         if (entry.type === 4 && entry.key === 2 && usernameRegex.test(entry.value)) {
           if (this.zombieEntities.includes(data.entityId)) return
           this.zombieEntities.push(data.entityId)
-          this.clientHandler.sendClientMessage(`§cTNTTagUtilities > §c${entry.value} §fhas turned into a zombie`)
+          this.clientHandler.sendClientMessage(`§c[TNT] > §c${entry.value} §fhas turned into a zombie`)
           this.userClient.write("named_sound_effect", {
             soundName: "mob.zombie.hurt",
             volume: 1,

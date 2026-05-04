@@ -1,5 +1,6 @@
 import { getPlayerNames } from "../tnttagApi/fullStats.js"
 import { getInfo } from "../mojangApi/identifierHandler.js"
+import { dynamicSpace } from "../utils/utils.js"
 
 export const name = "names"
 export const aliases = []
@@ -25,8 +26,13 @@ export async function run(usageInstance) {
         return
     }
     let reversedNames = playerNames.names.reverse()
-    usageInstance.reply(`§c${info.name}§f's name history:`)
+
+    let titleString = `§c${info.name}§f's name history`
+
+    usageInstance.clientHandler.sendClientMessage(`§c§m-----------------------------------------------------`)
+    usageInstance.clientHandler.sendClientMessage(dynamicSpace(titleString))
     for (let i = 0; i < playerNames.names.length; i++) {
-        usageInstance.clientHandler.sendClientMessage(`§c${i + 1}: §f${reversedNames[i].name} §7(${i + 1 === playerNames.names.length ? "First Name": reversedNames[i].changedToAt ? new Date(reversedNames[i].changedToAt).toLocaleDateString() : new Date(reversedNames[i].changedToAt_latest).toLocaleDateString()})`)
+        usageInstance.clientHandler.sendClientMessage(` §c${i + 1}: §f${reversedNames[i].name} §7(${i + 1 === playerNames.names.length ? "First Name": reversedNames[i].changedToAt ? new Date(reversedNames[i].changedToAt).toLocaleDateString() : new Date(reversedNames[i].changedToAt_latest).toLocaleDateString()})`)
     }
+    usageInstance.clientHandler.sendClientMessage(`§c§m-----------------------------------------------------`)
 }

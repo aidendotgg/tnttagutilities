@@ -45,7 +45,7 @@ export class UsageInstance {
     if (this.source === "slash") {
       if (this.clientHandler.destroyed) return
       this.clientHandler.sendClientMessage({
-        text: `§cTNTTagUtilities > §r${text}`
+        text: `§c[TNT] > §r${text}`
       })
     } else if (this.source === "console") {
       //TODO: translate to ANSI color codes for console

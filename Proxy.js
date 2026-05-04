@@ -8,7 +8,7 @@ const supportedString = "Please use 1.8-1.8.9"
 
 export class Proxy {
   constructor() {
-    this.version = "1.5.0"
+    this.version = "1.6.0"
 
     this.proxyServer = createServer({
       "online-mode": true,
@@ -16,7 +16,7 @@ export class Proxy {
       version: false,
       port: config["server-port"],
       host: config["server-host"],
-      motd: `§a§lHypixel TNT Tag Proxy §7(Version ${this.version})\n§bInitial version`,
+      motd: `§a§lHypixel TNT Tag Proxy §7(Version ${this.version})`,
       favicon: faviconText,
       hideErrors: true,
       beforePing: this.handlePing.bind(this)

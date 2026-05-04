@@ -42,3 +42,86 @@ export function random64BitBigInt() {
 
   return combinedInt;
 }
+
+export function dynamicSpace(string, lineLength = 60) {
+  const stripped = string.replace(/§./g, '');
+  const padding = Math.max(0, Math.floor((lineLength - stripped.length)));
+  return ' '.repeat(padding) + string;
+}
+
+const colorMap = new Map([
+  ["#FF5555", "§c"],
+  ["#FFAA00", "§6"],
+  ["#55FF55", "§a"],
+  ["#FFFF55", "§e"],
+  ["#FF55FF", "§d"],
+  ["#FFFFFF", "§f"],
+  ["#5555FF", "§9"],
+  ["#00AA00", "§2"],
+  ["#AA0000", "§4"],
+  ["#00AAAA", "§3"],
+  ["#55FFFF", "§b"],
+  ["#AA00AA", "§5"],
+  ["#555555", "§8"],
+  ["#AAAAAA", "§7"],
+  ["#000000", "§0"],
+  ["#0000AA", "§1"],
+]);
+
+let winsColorMap = new Map([
+  [5000, '§0'],
+  [2500, '§c'],
+  [1500, '§6'],
+  [1000, '§5'],
+  [500, '§9'],
+  [250, '§a'],
+  [100, '§2'],
+  [50, '§f'],
+  [15, '§7'],
+  [0, '§8']
+])
+
+export function formatRank(username, rank, plusColor, rankColor) {
+  switch (rank) {
+    case "NONE":
+      return `§7${username}`
+    case "VIP":
+      return `§a[VIP] ${username}`
+    case "VIP_PLUS":
+      return `§a[VIP§6+§a] ${username}`
+    case "MVP":
+      return `§b[MVP] ${username}`
+    case "MVP_PLUS":
+      return `§b[MVP${colorMap.get(plusColor)}+§b] ${username}`
+    case "MVP_PLUS_PLUS":
+      return `${colorMap.get(rankColor)}[MVP${colorMap.get(plusColor)}++${colorMap.get(rankColor)}] ${username}`
+    case "YOUTUBER":
+      return `§c[§fYOUTUBE§c] ${username}`
+    case "STAFF":
+      return `§c[§6ዞ§c] ${username}`
+    case "PIG_PLUS_PLUS_PLUS":
+      return `§d[PIG§b+++§d] ${username}`
+    case "INNIT":
+      return `§d[INNIT] ${username}`
+    case "MOJANG":
+      return `§6[MOJANG] ${username}`
+    case "EVENTS":
+      return `§6[EVENTS] ${username}`
+    default:
+      return `§c${username}`
+  }
+}
+
+export function formatWins(wins) {
+  let winString = `[${wins}]`
+
+  if (wins >= 10000) {
+    return `§c${winString.charAt(0)}` + `§6${winString.charAt(1)}` + `§e${winString.charAt(2)}` + `§a${winString.charAt(3)}` + `§b${winString.charAt(4)}` + `§d${winString.charAt(5)}` + `§5${winString.charAt(6)}`
+  } else {
+    for (let [milestone, color] of winsColorMap) {
+      if (wins >= milestone) {
+        return `${color}${winString}`
+      }
+    }
+  }
+}
