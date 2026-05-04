@@ -78,6 +78,7 @@ async function fetchPlayers(uuids) {
       users.set(user.uuid, {
         wins: user.wins,
         tag: user.tag,
+        utag: user.utag,
         rank: user.rank,
         plusColor: user.plusColor,
         rankColor: user.rankColor

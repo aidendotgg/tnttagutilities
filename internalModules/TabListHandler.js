@@ -378,6 +378,22 @@ export class TabListHandler {
         this.sentBlacklistMessages.add(uuid)
       }
     }
+    if (data.utag) {
+      extraPrefixText = "§e"
+
+      if (!this.sentBlacklistMessages.has(uuid)) {
+        this.clientHandler.sendClientMessage(`§c[TNT] > ${formatWins(data.wins)} ${formatRank(username, data.rank, data.plusColor, data.rankColor)} §fis blacklisted on §dUrchin §ffor §c${data.utag.reason}§f: ${data.utag.message}`)
+        this.userClient.write("named_sound_effect", {
+          soundName: "mob.cat.meow",
+          volume: 1,
+          pitch: 50,
+          x: Math.round(this.stateHandler.currentPosition.x * 8),
+          y: Math.round(this.stateHandler.currentPosition.y * 8) + 8,
+          z: Math.round(this.stateHandler.currentPosition.z * 8)
+        })
+        this.sentBlacklistMessages.add(uuid)
+      }
+    }
     if (isBlacklisted(uuid.replaceAll("-", ""))) {
       extraPrefixText = "§e"
 
