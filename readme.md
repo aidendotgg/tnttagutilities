@@ -25,9 +25,10 @@ If you need support DM @aidendotgg on discord
 - Boldens the speed and slowness message in chat to make it stand out more.
 - Plays a high pitch jukebox sound when you get speed 3 and a low pitch jukebox sound when you give slowness 1 to someone.
 - Plays an ender dragon hit sound when you throw someone back with the repulsor powerup.
+- [Seraph](https://seraph.si/) and [Urchin](https://urchin.ws/) tag support to alert you of cheaters in your game.
 - `/tstats <optional user>` shows you someone's TNT Tag stats, or your own.
 - `/names <optional user>` shows you someone's name history, or your own.
-- `/blacklist add/remove <user>` adds user to a blacklist and gives them a yellow colored name on the player list and on their nametag so you can spot players you want to avoid.
+- `/blacklist add/remove <user>` adds user to a local blacklist and gives them a yellow colored name on the player list and on their nametag so you can spot players you want to avoid.
 - `/showbarriers` allows you to toggle the visibility of barriers on the map.
 
 ## Images
@@ -38,7 +39,8 @@ If you need support DM @aidendotgg on discord
 <img src="https://r2.e-z.host/2082d908-7c65-4fc3-b02a-5f50f9141543/5cvkof4v.png" />
 <img src="https://r2.e-z.host/2082d908-7c65-4fc3-b02a-5f50f9141543/otgbjatl.png" />
 <img src="https://r2.e-z.host/2082d908-7c65-4fc3-b02a-5f50f9141543/p6duuliy.png" />
-<img src="https://r2.e-z.host/2082d908-7c65-4fc3-b02a-5f50f9141543/dqtkiew4.png" />
+<img src="https://r2.e-z.host/2082d908-7c65-4fc3-b02a-5f50f9141543/lsj3qhpu.png" />
+<img src="https://r2.e-z.host/2082d908-7c65-4fc3-b02a-5f50f9141543/zsdw29kn.png" />
 
 ## FAQ
 
